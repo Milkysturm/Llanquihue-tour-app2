@@ -1,0 +1,6 @@
+Ruta Gastronomica Llanquihue;gastronomico;25000;12;Valentina Munoz;Espanol;6;Transportes del Sur;Bus;Cocina Llanquihue;Llanquihue
+Paseo Lacustre Lago Llanquihue;lacustre;18000;20;Matias Gonzalez;Aleman;4;Navieras del Lago;Embarcacion;Muelle Frutillar;Frutillar
+Excursion Volcan Osorno;cultural;35000;8;Camila Soto;Ingles;8;Andes Transfer;Van;Montana Viva;Puerto Varas
+City Tour Puerto Varas;cultural;15000;25;Rodrigo Perez;Espanol;5;Transportes del Sur;Bus;Ciudad Lagos;Puerto Varas
+Tour Cervecero Artesanal;gastronomico;22000;10;Andres Vargas;Ingles;3;Ruta Cervecera SpA;Van;Maltas del Sur;Llanquihue
+Navegacion Saltos del Petrohue;lacustre;28000;15;Francisca Diaz;Aleman;7;Navieras del Lago;Embarcacion;Rios del Sur;Puerto Montt
