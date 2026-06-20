@@ -21,8 +21,9 @@ public class Main {
     /**
      * Punto de entrada del programa.
      *
+     * @param args argumentos de línea de comandos (no se utilizan)
      */
-    static void main() {
+    public static void main(String[] args) {
 
         // Ruta del archivo de datos dentro de la carpeta resources
         String rutaArchivo = "src/resources/tours.txt";
@@ -76,3 +77,4 @@ public class Main {
         System.out.println("Tours despues de eliminar: " + gestor.getTours().size());
     }
 }
+
