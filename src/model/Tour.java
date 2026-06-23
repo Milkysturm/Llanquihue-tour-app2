@@ -1,236 +1,204 @@
 package model;
 
-import util.Validador;
-
 /**
- * Representa un Tour ofrecido por la agencia Llanquihue Tour.
+ * Representa un tour ofrecido por la agencia Llanquihue Tour.
  * <p>
- * Cada objeto Tour corresponde a una línea del archivo de datos
- * {@code tours.txt}. Además de sus atributos simples, aplica
- * <b>composición</b> al contener tres objetos como atributos: un
- * {@link Guia}, un {@link Proveedor} de transporte y un {@link Operador}
- * local. Los setters incluyen validaciones que protegen la integridad
- * de los datos.
+ * Esta clase aplica <b>composición triple</b>: cada {@code Tour} contiene
+ * un {@link Guia}, un {@link Proveedor} y un {@link Operador}, reflejando
+ * la red de colaboración descrita en el caso de la agencia.
+ * </p>
  *
  * @author Olga Rivas Ahumada
- * @version 4.0
+ * @version 1.0
  */
 public class Tour {
 
-    /** Nombre del tour. */
     private String nombre;
-
-    /** Tipo de tour (por ejemplo: gastronomico, lacustre, cultural). */
     private String tipo;
-
-    /** Precio del tour expresado en pesos chilenos. */
-    private int precio;
-
-    /** Cantidad de cupos disponibles para el tour. */
-    private int cupos;
-
-    /** Guía asignado al tour (composición). */
+    private double precio;
+    private int cuposDisponibles;
     private Guia guia;
-
-    /** Proveedor de transporte del tour (composición). */
     private Proveedor proveedor;
-
-    /** Operador local del tour (composición). */
     private Operador operador;
 
     /**
-     * Crea un nuevo Tour con todos sus atributos y sus colaboradores.
-     * Utiliza los setters para validar cada valor al construir el objeto.
+     * Crea un nuevo tour con sus colaboradores asociados.
      *
-     * @param nombre    el nombre del tour
-     * @param tipo      el tipo de tour (gastronomico, lacustre, cultural, etc.)
-     * @param precio    el precio del tour en pesos chilenos
-     * @param cupos     la cantidad de cupos disponibles
-     * @param guia      el guía asignado al tour
-     * @param proveedor el proveedor de transporte del tour
-     * @param operador  el operador local del tour
+     * @param nombre nombre del tour
+     * @param tipo tipo de tour (gastronómico, lacustre, cultural, etc.)
+     * @param precio precio del tour en pesos chilenos
+     * @param cuposDisponibles cantidad de cupos disponibles
+     * @param guia guía asignado al tour
+     * @param proveedor proveedor de transporte del tour
+     * @param operador operador local del tour
      */
-    public Tour(String nombre, String tipo, int precio, int cupos,
+    public Tour(String nombre, String tipo, double precio, int cuposDisponibles,
                 Guia guia, Proveedor proveedor, Operador operador) {
-        setNombre(nombre);
-        setTipo(tipo);
-        setPrecio(precio);
-        setCupos(cupos);
-        setGuia(guia);
-        setProveedor(proveedor);
-        setOperador(operador);
+        this.nombre = nombre;
+        this.tipo = tipo;
+        this.precio = precio;
+        this.cuposDisponibles = cuposDisponibles;
+        this.guia = guia;
+        this.proveedor = proveedor;
+        this.operador = operador;
     }
 
     /**
-     * Devuelve el nombre del tour.
+     * Obtiene el nombre del tour.
      *
-     * @return el nombre del tour
+     * @return nombre del tour
      */
     public String getNombre() {
         return nombre;
     }
 
     /**
-     * Establece el nombre del tour, validando que no esté vacío.
+     * Establece el nombre del tour.
      *
-     * @param nombre el nuevo nombre del tour
+     * @param nombre nuevo nombre del tour
      * @throws IllegalArgumentException si el nombre es nulo o está vacío
      */
     public void setNombre(String nombre) {
-        if (!Validador.textoValido(nombre)) {
-            throw new IllegalArgumentException("El nombre del tour no puede estar vacio.");
+        if (!util.Validador.textoValido(nombre)) {
+            throw new IllegalArgumentException("El nombre del tour no puede estar vacío.");
         }
         this.nombre = nombre;
     }
 
     /**
-     * Devuelve el tipo del tour.
+     * Obtiene el tipo de tour.
      *
-     * @return el tipo del tour
+     * @return tipo de tour
      */
     public String getTipo() {
         return tipo;
     }
 
     /**
-     * Establece el tipo del tour, validando que no esté vacío.
+     * Establece el tipo de tour.
      *
-     * @param tipo el nuevo tipo del tour
-     * @throws IllegalArgumentException si el tipo es nulo o está vacío
+     * @param tipo nuevo tipo de tour
+     * @throws IllegalArgumentException si el valor es nulo o está vacío
      */
     public void setTipo(String tipo) {
-        if (!Validador.textoValido(tipo)) {
-            throw new IllegalArgumentException("El tipo del tour no puede estar vacio.");
+        if (!util.Validador.textoValido(tipo)) {
+            throw new IllegalArgumentException("El tipo de tour no puede estar vacío.");
         }
         this.tipo = tipo;
     }
 
     /**
-     * Devuelve el precio del tour.
+     * Obtiene el precio del tour.
      *
-     * @return el precio del tour en pesos chilenos
+     * @return precio del tour
      */
-    public int getPrecio() {
+    public double getPrecio() {
         return precio;
     }
 
     /**
-     * Establece el precio del tour, validando que no sea negativo.
+     * Establece el precio del tour.
      *
-     * @param precio el nuevo precio del tour en pesos chilenos
+     * @param precio nuevo precio del tour
      * @throws IllegalArgumentException si el precio es negativo
      */
-    public void setPrecio(int precio) {
-        if (!Validador.numeroNoNegativo(precio)) {
-            throw new IllegalArgumentException("El precio del tour no puede ser negativo.");
+    public void setPrecio(double precio) {
+        if (!util.Validador.numeroNoNegativo(precio)) {
+            throw new IllegalArgumentException("El precio no puede ser negativo.");
         }
         this.precio = precio;
     }
 
     /**
-     * Devuelve la cantidad de cupos disponibles.
+     * Obtiene los cupos disponibles del tour.
      *
-     * @return la cantidad de cupos disponibles
+     * @return cupos disponibles
      */
-    public int getCupos() {
-        return cupos;
+    public int getCuposDisponibles() {
+        return cuposDisponibles;
     }
 
     /**
-     * Establece la cantidad de cupos, validando que no sea negativa.
+     * Establece los cupos disponibles del tour.
      *
-     * @param cupos la nueva cantidad de cupos disponibles
-     * @throws IllegalArgumentException si los cupos son negativos
+     * @param cuposDisponibles nueva cantidad de cupos disponibles
+     * @throws IllegalArgumentException si el valor es negativo
      */
-    public void setCupos(int cupos) {
-        if (!Validador.numeroNoNegativo(cupos)) {
-            throw new IllegalArgumentException("Los cupos del tour no pueden ser negativos.");
+    public void setCuposDisponibles(int cuposDisponibles) {
+        if (!util.Validador.numeroNoNegativo(cuposDisponibles)) {
+            throw new IllegalArgumentException("Los cupos disponibles no pueden ser negativos.");
         }
-        this.cupos = cupos;
+        this.cuposDisponibles = cuposDisponibles;
     }
 
     /**
-     * Devuelve el guía asignado al tour.
+     * Obtiene el guía asignado al tour.
      *
-     * @return el objeto {@link Guia} asignado
+     * @return guía del tour
      */
     public Guia getGuia() {
         return guia;
     }
 
     /**
-     * Establece el guía asignado, validando que no sea nulo.
+     * Establece el guía asignado al tour.
      *
-     * @param guia el nuevo guía asignado
-     * @throws IllegalArgumentException si el guía es nulo
+     * @param guia nuevo guía del tour
      */
     public void setGuia(Guia guia) {
-        if (guia == null) {
-            throw new IllegalArgumentException("El tour debe tener un guia asignado.");
-        }
         this.guia = guia;
     }
 
     /**
-     * Devuelve el proveedor de transporte del tour.
+     * Obtiene el proveedor de transporte del tour.
      *
-     * @return el objeto {@link Proveedor} asignado
+     * @return proveedor del tour
      */
     public Proveedor getProveedor() {
         return proveedor;
     }
 
     /**
-     * Establece el proveedor, validando que no sea nulo.
+     * Establece el proveedor de transporte del tour.
      *
-     * @param proveedor el nuevo proveedor asignado
-     * @throws IllegalArgumentException si el proveedor es nulo
+     * @param proveedor nuevo proveedor del tour
      */
     public void setProveedor(Proveedor proveedor) {
-        if (proveedor == null) {
-            throw new IllegalArgumentException("El tour debe tener un proveedor asignado.");
-        }
         this.proveedor = proveedor;
     }
 
     /**
-     * Devuelve el operador local del tour.
+     * Obtiene el operador local del tour.
      *
-     * @return el objeto {@link Operador} asignado
+     * @return operador del tour
      */
     public Operador getOperador() {
         return operador;
     }
 
     /**
-     * Establece el operador, validando que no sea nulo.
+     * Establece el operador local del tour.
      *
-     * @param operador el nuevo operador asignado
-     * @throws IllegalArgumentException si el operador es nulo
+     * @param operador nuevo operador del tour
      */
     public void setOperador(Operador operador) {
-        if (operador == null) {
-            throw new IllegalArgumentException("El tour debe tener un operador asignado.");
-        }
         this.operador = operador;
     }
 
     /**
-     * Devuelve una representación legible del tour, incluyendo los datos
-     * de su guía, proveedor y operador.
+     * Retorna una representación legible y desglosada del tour,
+     * incluyendo la información de sus tres colaboradores compuestos.
      *
-     * @return una cadena con los datos del tour
+     * @return texto con todos los datos del tour
      */
     @Override
     public String toString() {
-        return "Tour{" +
-                "nombre='" + nombre + '\'' +
-                ", tipo='" + tipo + '\'' +
-                ", precio=$" + precio +
-                ", cupos=" + cupos +
-                ", guia=" + guia +
-                ", proveedor=" + proveedor +
-                ", operador=" + operador +
-                '}';
+        return "Tour: " + nombre
+                + " | Tipo: " + tipo
+                + " | Precio: $" + precio
+                + " | Cupos: " + cuposDisponibles
+                + "\n   -> " + guia
+                + "\n   -> " + proveedor
+                + "\n   -> " + operador;
     }
 }

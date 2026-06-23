@@ -1,13 +1,12 @@
 package util;
 
 /**
- * Clase utilitaria con métodos de validación reutilizables.
+ * Librería de utilidades propia con métodos estáticos de validación
+ * reutilizables en todo el sistema Llanquihue Tour.
  * <p>
- * Pertenece al paquete {@code util} y funciona como una pequeña
- * "librería personalizada" del proyecto: agrupa validaciones genéricas
- * que pueden usarse desde cualquier otra clase, evitando duplicar código.
- * Todos sus métodos son estáticos, por lo que no es necesario instanciar
- * la clase para utilizarlos.
+ * Centraliza las reglas de validación para evitar duplicar lógica
+ * en cada clase del paquete {@code model}.
+ * </p>
  *
  * @author Olga Rivas Ahumada
  * @version 1.0
@@ -15,31 +14,40 @@ package util;
 public class Validador {
 
     /**
-     * Verifica que un texto no sea nulo ni esté vacío.
+     * Constructor privado: esta clase solo expone métodos estáticos
+     * y no está pensada para ser instanciada.
+     */
+    private Validador() {
+    }
+
+    /**
+     * Verifica que un texto no sea nulo ni esté vacío (ni compuesto
+     * solo de espacios en blanco).
      *
-     * @param texto el texto a validar
-     * @return {@code true} si el texto tiene contenido; {@code false} en caso contrario
+     * @param texto texto a validar
+     * @return {@code true} si el texto es válido, {@code false} en caso contrario
      */
     public static boolean textoValido(String texto) {
         return texto != null && !texto.trim().isEmpty();
     }
 
     /**
-     * Verifica que un número entero no sea negativo.
+     * Verifica que un número (entero o decimal) no sea negativo.
      *
-     * @param numero el número a validar
-     * @return {@code true} si el número es cero o positivo; {@code false} si es negativo
+     * @param numero número a validar
+     * @return {@code true} si el número es mayor o igual a cero
      */
-    public static boolean numeroNoNegativo(int numero) {
+    public static boolean numeroNoNegativo(double numero) {
         return numero >= 0;
     }
 
     /**
-     * Verifica que una línea de datos tenga la cantidad de campos esperada.
+     * Verifica que un arreglo de campos tenga exactamente la cantidad
+     * esperada de elementos, útil al parsear líneas de un archivo de texto.
      *
-     * @param campos         el arreglo de campos obtenido al separar la línea
-     * @param cantidadEsperada la cantidad de campos que debe tener
-     * @return {@code true} si la cantidad coincide; {@code false} en caso contrario
+     * @param campos arreglo de campos obtenido al dividir una línea
+     * @param cantidadEsperada cantidad de campos que debería tener la línea
+     * @return {@code true} si la cantidad de campos coincide con la esperada
      */
     public static boolean cantidadCamposValida(String[] campos, int cantidadEsperada) {
         return campos != null && campos.length == cantidadEsperada;
