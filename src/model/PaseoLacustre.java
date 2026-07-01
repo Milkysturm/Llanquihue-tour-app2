@@ -1,62 +1,45 @@
 package model;
 
+import exception.ServicioInvalidoException;
+import util.FormatoMoneda;
+
 /**
- * Representa un paseo lacustre ofrecido por la agencia.
- * <p>
- * Extiende {@link ServicioTuristico}, agregando el atributo propio
- * {@code tipoEmbarcacion}, que indica el tipo de embarcación utilizada
- * durante el paseo.
- * </p>
+ * Subclase concreta: Paseo Lacustre.
  *
- * @author Olga Rivas Ahumada
- * @version 1.0
+ * Anade el atributo propio (nombreLago) y sobrescribe mostrarInformacion()
+ * con el detalle especifico de un paseo por el lago.
  */
 public class PaseoLacustre extends ServicioTuristico {
 
-    private String tipoEmbarcacion;
+    private String nombreLago;
 
-    /**
-     * Crea un nuevo paseo lacustre.
-     *
-     * @param nombre nombre del servicio (heredado de {@code ServicioTuristico})
-     * @param duracionHoras duración del servicio en horas (heredado de {@code ServicioTuristico})
-     * @param tipoEmbarcacion tipo de embarcación utilizada en el paseo
-     */
-    public PaseoLacustre(String nombre, int duracionHoras, String tipoEmbarcacion) {
-        super(nombre, duracionHoras);
-        this.tipoEmbarcacion = tipoEmbarcacion;
+    public PaseoLacustre(String nombre, String ubicacion, double precio,
+                         int duracionHoras, String nombreLago)
+            throws ServicioInvalidoException {
+        super(nombre, ubicacion, precio, duracionHoras);
+        this.nombreLago = nombreLago;
     }
 
-    /**
-     * Obtiene el tipo de embarcación del paseo.
-     *
-     * @return tipo de embarcación
-     */
-    public String getTipoEmbarcacion() {
-        return tipoEmbarcacion;
+    public String getNombreLago() {
+        return nombreLago;
     }
 
-    /**
-     * Establece el tipo de embarcación del paseo.
-     *
-     * @param tipoEmbarcacion nuevo tipo de embarcación
-     * @throws IllegalArgumentException si el valor es nulo o está vacío
-     */
-    public void setTipoEmbarcacion(String tipoEmbarcacion) {
-        if (!util.Validador.textoValido(tipoEmbarcacion)) {
-            throw new IllegalArgumentException("El tipo de embarcación no puede estar vacío.");
-        }
-        this.tipoEmbarcacion = tipoEmbarcacion;
+    public void setNombreLago(String nombreLago) {
+        this.nombreLago = nombreLago;
     }
 
-    /**
-     * Retorna una representación legible del paseo lacustre,
-     * mostrando la información heredada más el tipo de embarcación.
-     *
-     * @return texto con nombre, duración y tipo de embarcación
-     */
     @Override
-    public String toString() {
-        return super.toString() + " | Tipo: Paseo Lacustre | Embarcación: " + tipoEmbarcacion;
+    public String getTipoServicio() {
+        return "Paseo Lacustre";
+    }
+
+    @Override
+    public String mostrarInformacion() {
+        return "[Paseo Lacustre] " + getNombre()
+                + "\n   Ubicacion : " + getUbicacion()
+                + "\n   Lago      : " + nombreLago
+                + "\n   Duracion  : " + getDuracionHoras() + " h"
+                + "\n   Precio    : " + FormatoMoneda.pesos(getPrecio())
+                + "\n   Navegacion con vista a los volcanes de la region.";
     }
 }

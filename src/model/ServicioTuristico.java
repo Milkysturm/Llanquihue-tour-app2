@@ -1,97 +1,120 @@
 package model;
 
+import exception.ServicioInvalidoException;
+import util.Validador;
+
 /**
- * Clase base que representa un servicio turístico genérico ofrecido
- * por la agencia Llanquihue Tour.
- * <p>
- * Es la <b>superclase</b> de la jerarquía de herencia de la Semana 6.
- * Las subclases {@link RutaGastronomica}, {@link PaseoLacustre} y
- * {@link ExcursionCultural} extienden esta clase, agregando un atributo
- * propio según su categoría de servicio.
- * </p>
- * <p>
- * <b>Nota:</b> esta jerarquía es independiente de la clase {@link Tour}
- * (que aplica composición). {@code ServicioTuristico} representa los
- * tipos generales de experiencias que ofrece la agencia, mientras que
- * {@code Tour} representa una excursión concreta ya armada con sus
- * colaboradores (guía, proveedor, operador).
- * </p>
+ * Superclase ABSTRACTA de la jerarquia de servicios turisticos.
  *
- * @author Olga Rivas Ahumada
- * @version 1.0
+ * Se declara abstracta porque un "servicio turistico generico" no representa
+ * una experiencia real que la agencia pueda vender: solo tienen sentido sus
+ * tipos concretos (RutaGastronomica, PaseoLacustre, ExcursionCultural). Por
+ * eso no debe poder instanciarse directamente.
+ *
+ * Define el metodo abstracto mostrarInformacion(), que cada subclase DEBE
+ * sobrescribir con el detalle propio de su tipo de servicio. Esto es la base
+ * del polimorfismo: una referencia de tipo ServicioTuristico ejecutara, en
+ * tiempo de ejecucion, la version del metodo correspondiente al objeto real.
+ *
+ * La validacion de los datos se realiza en el constructor y, ante datos
+ * invalidos, se lanza una excepcion personalizada (ServicioInvalidoException)
+ * en lugar de imprimir por consola, manteniendo el modelo desacoplado de la
+ * terminal.
  */
-public class ServicioTuristico {
+public abstract class ServicioTuristico {
 
     private String nombre;
+    private String ubicacion;
+    private double precio;
     private int duracionHoras;
 
     /**
-     * Crea un nuevo servicio turístico.
+     * Construye un servicio turistico validando sus datos.
      *
-     * @param nombre nombre del servicio turístico
-     * @param duracionHoras duración del servicio, expresada en horas
+     * @throws ServicioInvalidoException si algun dato no cumple las reglas.
      */
-    public ServicioTuristico(String nombre, int duracionHoras) {
+    public ServicioTuristico(String nombre, String ubicacion,
+                             double precio, int duracionHoras)
+            throws ServicioInvalidoException {
+
+        if (!Validador.textoValido(nombre)) {
+            throw new ServicioInvalidoException(
+                    "El nombre del servicio no puede estar vacio.");
+        }
+        if (!Validador.textoValido(ubicacion)) {
+            throw new ServicioInvalidoException(
+                    "La ubicacion del servicio no puede estar vacia.");
+        }
+        if (!Validador.precioValido(precio)) {
+            throw new ServicioInvalidoException(
+                    "El precio debe ser mayor que cero (recibido: " + precio + ").");
+        }
+        if (!Validador.duracionValida(duracionHoras)) {
+            throw new ServicioInvalidoException(
+                    "La duracion debe ser mayor que cero (recibido: "
+                            + duracionHoras + ").");
+        }
+
         this.nombre = nombre;
+        this.ubicacion = ubicacion;
+        this.precio = precio;
         this.duracionHoras = duracionHoras;
     }
 
     /**
-     * Obtiene el nombre del servicio turístico.
+     * Metodo ABSTRACTO. Cada subclase lo sobrescribe (@Override) para mostrar
+     * la informacion especifica de su tipo de servicio de forma polimorfica.
      *
-     * @return nombre del servicio
+     * @return una cadena con la informacion formateada del servicio.
      */
+    public abstract String mostrarInformacion();
+
+    /**
+     * Devuelve el tipo de servicio. Las subclases pueden sobrescribirlo;
+     * por defecto usa el nombre simple de la clase.
+     */
+    public String getTipoServicio() {
+        return this.getClass().getSimpleName();
+    }
+
+    // ---- Getters y setters (encapsulamiento) ----
+
     public String getNombre() {
         return nombre;
     }
 
-    /**
-     * Establece el nombre del servicio turístico.
-     *
-     * @param nombre nuevo nombre del servicio
-     * @throws IllegalArgumentException si el nombre es nulo o está vacío
-     */
     public void setNombre(String nombre) {
-        if (!util.Validador.textoValido(nombre)) {
-            throw new IllegalArgumentException("El nombre del servicio no puede estar vacío.");
-        }
         this.nombre = nombre;
     }
 
-    /**
-     * Obtiene la duración del servicio en horas.
-     *
-     * @return duración en horas
-     */
+    public String getUbicacion() {
+        return ubicacion;
+    }
+
+    public void setUbicacion(String ubicacion) {
+        this.ubicacion = ubicacion;
+    }
+
+    public double getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(double precio) {
+        this.precio = precio;
+    }
+
     public int getDuracionHoras() {
         return duracionHoras;
     }
 
-    /**
-     * Establece la duración del servicio en horas.
-     *
-     * @param duracionHoras nueva duración en horas
-     * @throws IllegalArgumentException si el valor es negativo
-     */
     public void setDuracionHoras(int duracionHoras) {
-        if (!util.Validador.numeroNoNegativo(duracionHoras)) {
-            throw new IllegalArgumentException("La duración no puede ser negativa.");
-        }
         this.duracionHoras = duracionHoras;
     }
 
-    /**
-     * Retorna una representación legible del servicio turístico,
-     * mostrando sus atributos comunes.
-     * <p>
-     * Las subclases sobrescriben este método para agregar su atributo
-     * propio a la información mostrada.
-     * </p>
-     *
-     * @return texto con nombre y duración del servicio
-     */
     @Override
     public String toString() {
-        return "Servicio: " + nombre + " | Duración: " + duracionHoras + " horas";
+        return getTipoServicio() + "{nombre='" + nombre + "', ubicacion='"
+                + ubicacion + "', precio=" + precio
+                + ", duracionHoras=" + duracionHoras + "}";
     }
 }

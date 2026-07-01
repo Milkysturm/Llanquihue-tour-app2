@@ -1,6 +1,0 @@
-Ruta del Queso Llanquihue;4;RutaGastronomica;6
-Sabores del Lago;3;RutaGastronomica;3
-Navegacion Lago Llanquihue;5;PaseoLacustre;Lancha
-Atardecer en el Llanquihue;3;PaseoLacustre;Velero
-Ruta de los Volcanes;6;ExcursionCultural;Fuerte de Niebla
-Historias de Puerto Varas;4;ExcursionCultural;Casa Yunge

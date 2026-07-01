@@ -1,55 +1,32 @@
 package util;
 
 /**
- * Librería de utilidades propia con métodos estáticos de validación
- * reutilizables en todo el sistema Llanquihue Tour.
- * <p>
- * Centraliza las reglas de validación para evitar duplicar lógica
- * en cada clase del paquete {@code model}.
- * </p>
+ * Clase utilitaria de validaciones reutilizables.
  *
- * @author Olga Rivas Ahumada
- * @version 1.0
+ * Continua el patron iniciado en la Semana 5: centraliza las reglas de
+ * validacion en metodos estaticos puros (sin estado y sin imprimir nada
+ * por consola). Devuelven true/false y es la capa que llama quien decide
+ * que hacer ante un dato invalido (por ejemplo, lanzar una excepcion
+ * personalizada o registrar el evento en el log de auditoria).
  */
-public class Validador {
+public final class Validador {
 
-    /**
-     * Constructor privado: esta clase solo expone métodos estáticos
-     * y no está pensada para ser instanciada.
-     */
+    // Constructor privado: es una clase de utilidades, no se instancia.
     private Validador() {
     }
 
-    /**
-     * Verifica que un texto no sea nulo ni esté vacío (ni compuesto
-     * solo de espacios en blanco).
-     *
-     * @param texto texto a validar
-     * @return {@code true} si el texto es válido, {@code false} en caso contrario
-     */
-    public static boolean textoValido(String texto) {
-        return texto != null && !texto.trim().isEmpty();
+    /** Un texto es valido si no es nulo ni queda vacio al quitar espacios. */
+    public static boolean textoValido(String valor) {
+        return valor != null && !valor.trim().isEmpty();
     }
 
-    /**
-     * Verifica que un número (entero o decimal) no sea negativo.
-     *
-     * @param numero número a validar
-     * @return {@code true} si el número es mayor o igual a cero
-     */
-    public static boolean numeroNoNegativo(double numero) {
-        return numero >= 0;
+    /** Un precio es valido si es estrictamente mayor que cero. */
+    public static boolean precioValido(double precio) {
+        return precio > 0;
     }
 
-    /**
-     * Verifica que un arreglo de campos tenga exactamente la cantidad
-     * esperada de elementos, útil al parsear líneas de un archivo de texto.
-     *
-     * @param campos arreglo de campos obtenido al dividir una línea
-     * @param cantidadEsperada cantidad de campos que debería tener la línea
-     * @return {@code true} si la cantidad de campos coincide con la esperada
-     */
-    public static boolean cantidadCamposValida(String[] campos, int cantidadEsperada) {
-        return campos != null && campos.length == cantidadEsperada;
+    /** Una duracion (en horas) es valida si es estrictamente mayor que cero. */
+    public static boolean duracionValida(int duracionHoras) {
+        return duracionHoras > 0;
     }
 }

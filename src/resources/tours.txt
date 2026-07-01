@@ -1,6 +1,0 @@
-Ruta del Queso Llanquihue;Gastronomico;25000;15;Marcela Soto;Espanol;6;Transportes Lago Azul;Bus;Agroturismo Sur;Llanquihue
-Navegacion Lago Llanquihue;Lacustre;32000;10;Pedro Alvarado;Ingles;9;Lanchas del Sur;Lancha;Operador Frutillar;Frutillar
-Ruta de los Volcanes;Cultural;28000;12;Camila Reyes;Aleman;4;Buses Patagonia;Bus;Turismo Puerto Varas;Puerto Varas
-Sabores del Lago;Gastronomico;21000;18;Ignacio Paredes;Espanol;3;Transportes Lago Azul;Van;Agroturismo Sur;Llanquihue
-Atardecer en el Llanquihue;Lacustre;35000;8;Pedro Alvarado;Ingles;9;Lanchas del Sur;Lancha;Operador Frutillar;Frutillar
-Historias de Puerto Varas;Cultural;26000;14;Camila Reyes;Aleman;4;Buses Patagonia;Bus;Turismo Puerto Varas;Puerto Varas
