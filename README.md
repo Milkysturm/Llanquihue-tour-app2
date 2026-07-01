@@ -30,9 +30,6 @@ tipos de servicios turísticos en una misma colección genérica** y los **recor
 polimórfica**, invocando métodos sobrescritos desde referencias de la superclase. La jerarquía
 queda preparada para escalar con nuevas subclases sin modificar el código existente.
 
-Además, se aplicó proactivamente la mejora sugerida por el profesor: las capas de datos y modelo
-quedan **completamente desacopladas de la consola** mediante **excepciones personalizadas** y un
-**registro de auditoría**.
 
 ---
 
