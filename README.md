@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://www.duoc.cl/wp-content/uploads/2021/05/logo-duoc.png" alt="Duoc UC" width="220"/>
+  <img src="https://www.duoc.cl/wp-content/uploads/2022/09/logo-0.png" alt="Duoc UC" width="220"/>
 </p>
 
 <h1 align="center">LlanquihueTourApp</h1>
