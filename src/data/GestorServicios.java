@@ -14,29 +14,40 @@ import java.util.List;
 
 /**
  * Gestor de la coleccion polimorfica de servicios turisticos.
+ * <p>
+ * Mantiene una {@code List<ServicioTuristico>} que almacena objetos de
+ * distintas subclases de forma indistinta (polimorfismo de inclusion). Esta
+ * clase <strong>no imprime nada por consola</strong>: cada evento, advertencia
+ * o error se acumula en un {@link RegistroAuditoria}, dejando que sea la capa
+ * de interfaz (ui) quien decida como mostrar esa informacion. De esta forma la
+ * capa de datos queda desacoplada de la terminal, segun la recomendacion del
+ * profesor.
  *
- * Mantiene una List<ServicioTuristico> que almacena objetos de distintas
- * subclases de forma indistinta (polimorfismo de inclusion). Esta clase
- * NO imprime nada por consola: cada evento, advertencia o error se acumula
- * en un RegistroAuditoria, dejando que sea la capa ui quien decida como
- * mostrar esa informacion. Asi la capa de datos queda desacoplada de la
- * terminal, segun la recomendacion del profesor.
+ * @author Olga Pamela Rivas Ahumada
+ * @version 1.0 (Semana 7 - Polimorfismo y colecciones genericas)
  */
 public class GestorServicios {
 
+    /** Coleccion polimorfica que almacena los servicios turisticos. */
     private final List<ServicioTuristico> servicios;
+
+    /** Registro donde se acumulan los eventos en lugar de imprimirlos. */
     private final RegistroAuditoria auditoria;
 
+    /**
+     * Crea un gestor con una coleccion vacia y su propio registro de auditoria.
+     */
     public GestorServicios() {
         this.servicios = new ArrayList<>();
         this.auditoria = new RegistroAuditoria();
     }
 
     /**
-     * Agrega un servicio a la coleccion.
+     * Agrega un servicio a la coleccion y registra el evento en la auditoria.
      *
-     * @throws GestorServiciosException (unchecked) si el servicio es nulo,
-     *         lo que representaria un error de programacion, no de datos.
+     * @param servicio el servicio a agregar; no puede ser nulo.
+     * @throws GestorServiciosException si el servicio es nulo, lo que
+     *                                  representaria un error de programacion.
      */
     public void agregarServicio(ServicioTuristico servicio) {
         if (servicio == null) {
@@ -49,13 +60,13 @@ public class GestorServicios {
     }
 
     /**
-     * Carga en la coleccion al menos cinco servicios de ejemplo combinando
-     * las distintas subclases. Los datos se crean manualmente (no se leen de
-     * archivo, segun lo pedido esta semana).
-     *
-     * Si algun dato resultara invalido, se captura la excepcion personalizada
-     * y se registra en la auditoria, sin detener la carga del resto ni
-     * imprimir por consola.
+     * Carga en la coleccion seis servicios de ejemplo combinando las distintas
+     * subclases (cumpliendo el minimo de cinco requerido).
+     * <p>
+     * Los datos se crean manualmente, segun lo pedido esta semana. Si algun
+     * dato resultara invalido, se captura la excepcion personalizada y se
+     * registra en la auditoria, sin detener la carga del resto ni imprimir por
+     * consola.
      */
     public void cargarServiciosDemo() {
         agregarSeguro(() -> new RutaGastronomica(
@@ -86,17 +97,25 @@ public class GestorServicios {
     /**
      * Interfaz funcional interna para crear un servicio que puede fallar con
      * una excepcion comprobada. Permite centralizar el manejo de errores de
-     * datos en un solo lugar (agregarSeguro).
+     * datos en un unico lugar ({@link #agregarSeguro(CreadorServicio)}).
      */
     @FunctionalInterface
     private interface CreadorServicio {
+        /**
+         * Crea un servicio turistico.
+         *
+         * @return el servicio creado.
+         * @throws ServicioInvalidoException si los datos no son validos.
+         */
         ServicioTuristico crear() throws ServicioInvalidoException;
     }
 
     /**
      * Intenta crear y agregar un servicio. Si los datos son invalidos, en vez
      * de propagar el error o imprimirlo, lo registra en la auditoria y
-     * continua. Esto demuestra el desacople entre logica y consola.
+     * continua. Demuestra el desacople entre la logica y la consola.
+     *
+     * @param creador funcion que construye el servicio a agregar.
      */
     private void agregarSeguro(CreadorServicio creador) {
         try {
@@ -109,16 +128,29 @@ public class GestorServicios {
 
     /**
      * Devuelve la lista de servicios como referencias de la superclase, lista
-     * para recorrerse polimorficamente.
+     * para recorrerse polimorficamente. La lista es de solo lectura para
+     * proteger la coleccion interna.
+     *
+     * @return una vista inmutable de la coleccion de servicios.
      */
     public List<ServicioTuristico> obtenerServicios() {
         return Collections.unmodifiableList(servicios);
     }
 
+    /**
+     * Indica cuantos servicios hay almacenados en la coleccion.
+     *
+     * @return la cantidad de servicios cargados.
+     */
     public int cantidadServicios() {
         return servicios.size();
     }
 
+    /**
+     * Entrega el registro de auditoria para que la capa ui pueda mostrarlo.
+     *
+     * @return el registro de auditoria del gestor.
+     */
     public RegistroAuditoria getAuditoria() {
         return auditoria;
     }

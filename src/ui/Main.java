@@ -4,20 +4,37 @@ import data.GestorServicios;
 import model.ServicioTuristico;
 
 /**
- * Clase principal (capa de interfaz / ui).
- *
- * Es la UNICA capa del sistema autorizada a imprimir por consola. Toma la
- * coleccion polimorfica desde el GestorServicios y la recorre con un bucle
- * for-each, invocando mostrarInformacion() sobre referencias de tipo
- * ServicioTuristico. Gracias al polimorfismo, en cada iteracion se ejecuta
- * automaticamente la version sobrescrita de la subclase correspondiente,
- * sin necesidad de usar instanceof ni condicionales por tipo.
- *
+ * Clase principal del sistema (capa de interfaz / ui).
+ * <p>
+ * Es la <strong>unica capa autorizada a imprimir por consola</strong>. Toma la
+ * coleccion polimorfica desde el {@link GestorServicios} y la recorre con un
+ * bucle {@code for-each}, invocando {@link ServicioTuristico#mostrarInformacion()}
+ * sobre referencias de tipo {@code ServicioTuristico}. Gracias al polimorfismo,
+ * en cada iteracion se ejecuta automaticamente la version sobrescrita de la
+ * subclase correspondiente, sin necesidad de usar {@code instanceof} ni
+ * condicionales por tipo.
+ * <p>
  * Al final muestra el registro de auditoria que las capas internas fueron
  * acumulando, demostrando el desacople entre la logica y la terminal.
+ *
+ * @author Olga Pamela Rivas Ahumada
+ * @version 1.0 (Semana 7 - Polimorfismo y colecciones genericas)
  */
 public class Main {
 
+    /**
+     * Constructor privado: {@code Main} es solo un punto de entrada y no debe
+     * instanciarse.
+     */
+    private Main() {
+    }
+
+    /**
+     * Punto de entrada del programa. Prepara la coleccion, la recorre de forma
+     * polimorfica y muestra los resultados junto al registro de auditoria.
+     *
+     * @param args argumentos de linea de comandos (no se utilizan).
+     */
     public static void main(String[] args) {
         System.out.println("====================================================");
         System.out.println("   LLANQUIHUE TOUR - Gestion de Servicios (S7)");
