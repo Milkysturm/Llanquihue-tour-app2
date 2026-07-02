@@ -141,13 +141,3 @@ mediante la **API `javax.tools`** con codificación UTF-8 (`-Dstdout.encoding=UT
 tal como se verificó este proyecto antes de la entrega.
 
 ---
-
-## Mejora aplicada (recomendación del profesor)
-
-> *Sustituir las impresiones directas (`System.out.println`) de las capas de parseo/lógica por
-> excepciones personalizadas (Checked/Unchecked) o un log de auditoría, para desacoplar los
-> servicios de la terminal.*
-
-Esta semana se aplicó **ambas técnicas**: las capas `model` y `data` ya **no imprimen**; validan
-con `Validador`, lanzan `ServicioInvalidoException` / `GestorServiciosException` ante problemas y
-registran los eventos en `RegistroAuditoria`. Solo `ui/Main` muestra información por consola.
