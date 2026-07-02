@@ -15,7 +15,7 @@
 | **Asignatura** | Desarrollo Orientado a Objetos I (DOO I) |
 | **Carrera** | Analista Programador Computacional |
 | **Institución** | Duoc UC |
-| **Repositorio** | [github.com/Milkysturm/llanquihue-tour](https://github.com/Milkysturm/llanquihue-tour) |
+| **Repositorio** | [github.com/Milkysturm/llanquihue-tour-app2](https://github.com/Milkysturm/Llanquihue-tour-app2) |
 
 ---
 
